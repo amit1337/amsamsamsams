@@ -5,7 +5,7 @@ header('location:login.php');
 ?>
 
 
-
+http://www.freezecoders.com/2012/11/add-list-edit-delete-record-in-database-using-php.html
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
