@@ -1,11 +1,13 @@
-<?php
-session_start();
-session_destroy();
-header('location:login.php');
-?>
+
 
 
 http://www.freezecoders.com/2012/11/add-list-edit-delete-record-in-database-using-php.html
+
+
+s1 php
+
+
+/////////////////////////////////////////////////////////////////S1//////////////////////////////////////////
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
@@ -33,10 +35,10 @@ http://www.freezecoders.com/2012/11/add-list-edit-delete-record-in-database-usin
 
 var name = $("#name").val();
 var email = $("#email").val();
-var password = $("#password").val();
+var address = $("#address").val();
 var contact = $("#contact").val();
 // Returns successful data submission message when the entered information is stored in database.
-var dataString = 'name1='+ name + '&email1='+ email + '&password1='+ password + '&contact1='+ contact;
+var dataString = 'name='+ name + '&email='+ email + '&address='+ address + '&contact='+ contact;
 
 
 
@@ -50,7 +52,8 @@ $.ajax({
 	data:dataString,
 	success:function(reply)
 	{
-		$('#result').html(reply);
+		//$('#result').html(reply);
+		$('#tbl').append(reply);
 	}
 })
 }
@@ -88,21 +91,21 @@ $.ajax({
 
 <div class="form-group">
                   <label for="exampleInputEmail1">Phone</label>
-                  <input type="text" class="form-control" name="email">
+                  <input type="text" class="form-control" name="contact" id="contact">
                 </div>
 
 
 <div class="form-group">
                   <label for="exampleInputEmail1">Email</label>
-                  <input type="text" class="form-control" name="password">
+                  <input type="text" class="form-control" name="email" id="email">
                 </div>
 
 <div class="form-group">
                   <label for="exampleInputEmail1">Address</label>
-                  <input type="text" class="form-control"  name="contact">
+                  <input type="text" class="form-control"  name="address" id="address">
                 </div>
 
-<input type="submit" class="btn btn-primary" onclick="insert();" >
+<input type="submit" class="btn btn-primary" onclick="insert();"   data-dismiss="modal">
 
 
 
@@ -119,3 +122,121 @@ $.ajax({
     </div>
   </div>
 </div>
+
+
+
+<?php
+
+
+	$query=mysql_connect("localhost","root","");
+mysql_select_db("student",$query);
+
+$query1=mysql_query("select * from info");
+?>
+
+
+<div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Quick Example</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+           
+              <div class="box-body">
+             
+
+
+<table class="table table-bordered" id="tbl">
+
+
+<tr>
+	<th>Name</th>
+	<th>Phone</th>
+	<th>E-mail</th>
+	<th>Address</th>
+</tr>
+<?php
+while($query2=mysql_fetch_array($query1))
+{
+	
+	?>
+<tr>
+	<td> <?php echo $query2['stud_name']; ?></td>
+	<td> <?php echo $query2['stud_phone']; ?></td>
+	<td> <?php echo $query2['stud_email']; ?></td>
+	<td> <?php echo $query2['stud_address']; ?></td>
+</tr>
+	<?php
+}
+?>
+</table>
+
+                
+               
+              </div>
+              <!-- /.box-body -->
+
+             
+           
+          </div>
+
+      </div>
+ 
+
+
+/////////////////////////////////////////////////////////////////S1 Xxxxxxxx//////////////////////////////////////////
+
+
+
+
+
+
+////////////////////////////////////////////////////////ajax////////////////////////////////////////
+<?php
+
+
+
+	$query=mysql_connect("localhost","root","");
+mysql_select_db("student",$query);
+
+if($_POST)
+{
+
+
+print_r($_POST);
+
+
+
+
+
+ $name=$_POST['name'];
+ $email=$_POST['email'];
+ $contact=$_POST['contact'];
+ $address=$_POST['address'];
+
+$query1=mysql_query("insert into info values('','$name','$contact','$email','$address')");
+
+if($query1)
+{
+	echo "Successfuly Inserted";
+
+	$str='';
+
+	$str.='<tr>
+	<td>'.$name.'</td>
+	<td>'.$contact.'</td>
+	<td>'.$email.'</td>
+	<td>'.$address.'</td>
+
+</tr>';
+echo $str;
+}
+
+
+}
+
+?>
+
+////////////////////////////////////////////////////////ajaxxxxxxxxxxxxx////////////////////////////////////////
